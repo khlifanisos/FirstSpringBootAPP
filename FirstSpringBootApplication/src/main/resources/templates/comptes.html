@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <script>
+  $( function() {
+  
+   $( "#tags" ).autocomplete({
+      source: "http://localhost:8080/clients/allCin",
+   
+      
+    });
+
+  } );
+  </script>
+</head>
+<body>
+
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">BANK Management System</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a class="nav-link" th:href="@{/clients/all}">Clients List</a></li>
+
+            <li><a class="nav-link" th:href="@{/comptes/all}">Account list</a></li>
+
+    		<li><div class="container authenticated" ><span >Logged in as: </span><span class="text-light bg-dark" id="user"></span>&nbsp;&nbsp;
+   <button  onclick="location.href = '/logout';" class="btn btn-primary">Logout</button>
+</div></li>
+        </ul>
+    </div>    
+</nav>
+<br>
+
+
+
+<br>
+
+	<h1>New compte</h1>
+	<form th:action="@{/comptes/save}" method="Post">
+		<table>
+
+
+			<tr>
+			
+				<td>CIN :</td>
+				<td><input type="text" name="cin" id="tags" value="" required/></td>
+			</tr>
+			<tr>
+				<td>Solde:</td>
+				<td><input type="text" name="solde" required /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Save"
+					class="btn btn-outline-primary" /></td>
+			</tr>
+		</table>
+	</form>
+	<hr />
+	<h1>List of comptes</h1>
+	<table class="table table-striped">
+	  <thead>
+		<tr>
+			<th>Rib</th>
+			<th>Nom</th>
+			<th>Solde</th>
+			<th>Edit</th>
+			<th>Delete</th>
+			<th>Delete-ajax</th>
+		</tr>
+		  </thead>
+		  
+		<tr th:id="${compte.rib}" th:each="compte: ${comptes}">
+			<td th:text="${compte.rib}" />
+			<td th:text="${compte.client.nom}" />
+			<td th:text="${compte.solde}" />
+			<td><a th:href="'/comptes/edit/'+${compte.rib}">edit</a></td>
+			<td><a th:href="'/comptes/delete/'+${compte.rib}">delete</a></td>
+			<td><a th:href=" 'javascript:deleteCompte( '+${compte.rib}+ ' ) '">delete ajax</a></td>
+		</tr>
+		  </tbody>
+	</table>
+	<script src="../js/bootstrap.bundle.min.js"></script>
+	<script src="../js/jquery-3.6.1.min.js"></script>
+	<script src="../js/sweetalert.min.js"></script>
+	
+	
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $.get("/user", function(data) {
+        $("#user").html(data.name);
+        $(".unauthenticated").hide()
+        $(".authenticated").show()
+    });
+</script>
+
+<script src="../js/comptes.js"></script>
+</body>
+</html>

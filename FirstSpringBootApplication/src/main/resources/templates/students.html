@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link href="../css/bootstrap.min.css" rel="stylesheet" >
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>
+		The current date is <span th:text="${serverTime}"></span>
+	</h1>
+	<hr />
+	<h1>New Student</h1>
+	<form th:action="@{/students/save}" method="Post">
+		<table>
+			<tr>
+				<td>Id:</td>
+				<td><input type="text" name="id" /></td>
+			</tr>
+			<tr>
+				<td>Name:</td>
+				<td><input type="text" name="name" /></td>
+			</tr>
+			<tr>
+				<td>Gender:</td>
+				<td><input type="text" name="gender" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Save"  class="btn btn-outline-primary"/></td>
+			</tr>
+		</table>
+	</form>
+	<hr />
+	<h1>List of Students</h1>
+	<table class="table table-striped">
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Gender</th>
+			<th>Edit</th>
+			<th>Delete</th>
+			<th>Delete-ajax</th>
+		</tr>
+		<tr th:id="${student.id}" th:each="student: ${students}">
+			<td th:text="${student.id}" />
+			<td th:text="${student.name}" />
+			<td><span th:if="${student.gender} == 'M'" th:text="Male" /> <span
+				th:unless="${student.gender} == 'M'" th:text="Female" /></td>
+			<td><a th:href="'/students/edit/'+${student.id}">edit</a></td>
+			<td><a th:href="'/students/delete/'+${student.id}">delete</a></td>
+			<td><a th:href="'javascript:deleteStudent('+${student.id}+')'">delete-ajax</a></td>
+		</tr>
+	</table>
+	<script src="../js/bootstrap.bundle.min.js" ></script>
+	<script src="../js/jquery-3.6.1.min.js" ></script>
+	<script src="../js/sweetalert.min.js"></script>
+	<script src="../js/students.js" ></script>
+	
+</body>
+</html>

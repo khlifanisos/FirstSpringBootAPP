@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">BANK Management System</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a class="nav-link" th:href="@{/clients/all}">Clients List</a></li>
+
+            <li><a class="nav-link" th:href="@{/comptes/all}">Account list</a></li>
+
+    		<li><div class="container authenticated" ><span >Logged in as: </span><span class="text-light bg-dark" id="user"></span>&nbsp;&nbsp;
+   <button  onclick="location.href = '/logout';" class="btn btn-primary">Logout</button>
+</div></li>
+        </ul>
+    </div>    
+</nav>
+
+
+
+	<h1>New Client</h1>
+	<form th:action="@{/clients/save}" method="Post">
+		<table>
+<tr>
+
+				<td>cin:  </td>
+				<td><input type="text" name="cin" required /></td>
+			</tr>
+			<tr>
+				<td>Nom:</td>
+				<td><input type="text" name="nom"  required /></td>
+			</tr>
+			<tr>
+				<td>prenom:</td>
+				<td><input type="text" name="prenom" required /></td>
+			</tr>
+			
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Save"
+					class="btn btn-outline-primary" /></td>
+			</tr>
+		</table>
+	</form>
+	<hr />
+	<h1>List of clients</h1>
+	<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>cin</th>
+			<th>Nom</th>
+			<th>prenom</th>
+		
+			<th>Edit</th>
+			<th>Delete</th>
+			<th>Delete-ajax</th>
+		</tr>
+		</thead>
+		 <tbody>
+		<tr th:id="${client.cin}" th:each="client: ${clients}">
+			<td th:text="${client.cin}" />
+			<td th:text="${client.nom}" />
+			<td th:text="${client.prenom}" />
+			<td><a th:href="'/clients/edit/'+${client.cin}">edit</a></td>
+			<td><a th:href="'/clients/delete/'+${client.cin}">delete</a></td>
+			<td><a th:href="'javascript:deleteClient('+${client.cin}+')'">delete-ajax</a></td>
+		</tr>
+		</tbody>
+	</table>
+	<script src="../js/bootstrap.bundle.min.js"></script>
+	<script src="../js/jquery-3.6.1.min.js"></script>
+	<script src="../js/sweetalert.min.js"></script>
+	<script src="../js/client.js"></script>
+	<script type="text/javascript">
+    $.get("/user", function(data) {
+        $("#user").html(data.name);
+        $(".unauthenticated").hide()
+        $(".authenticated").show()
+    });
+</script>
+
+</body>
+</html>

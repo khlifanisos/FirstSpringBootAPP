@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>Edit Student</h1>
+	<form th:object="${student}" th:action="@{/students/update}" method="post">
+		<table>
+			<tr>
+				<td><label text="id"> </label></td>
+				<td><input type="number" th:field="*{id}" readonly="readonly" /></td>
+			</tr>
+			<tr>
+				<td><label text="name"> </label></td>
+				<td><input type="text" th:field="*{name}" /></td>
+			</tr>
+			<tr>
+				<td><label text="gender"> </label></td>
+				<td><input type="text" th:field="*{gender}" /></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Update" /></td>
+			</tr>
+		</table>
+	</form>
+
+
+</body>
+</html>

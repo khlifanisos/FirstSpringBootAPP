@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+	<h1>Edit Compte</h1>
+	<form th:object="${compte}" th:action="@{/comptes/update}" method="post">
+		<table>
+			<tr>
+				<td><label text="rib"> Rib :</label></td>
+				<td><input type="number" th:field="*{rib}" readonly="readonly" /></td>
+			</tr>
+			<tr>
+				<td><label text="solde"> Solde : </label></td>
+				<td><input type="text" th:field="*{solde}" /></td>
+			</tr>
+			<tr>
+				<td><label text="nomClient"> Client cin :</label></td>
+				<td><input type="text" th:field="*{client.cin}" readonly="readonly"/></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Update" class="btn btn-outline-primary" /></td>
+			</tr>
+		</table>
+		<script src="../js/bootstrap.bundle.min.js"></script>
+	<script src="../js/jquery-3.6.1.min.js"></script>
+		
+	</form>
+
+</body>
+</html>

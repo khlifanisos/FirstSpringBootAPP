@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+	<h1>Edit client</h1>
+	<form th:object="${client}" th:action="@{/clients/update}" method="post">
+		<table>
+			<tr>
+				<td><label text="cin"> Cin</label></td>
+				<td><input type="text" th:field="*{cin}" readonly="readonly"/></td>
+			</tr>
+			<tr>
+				<td><label text="nom"> Nom</label></td>
+				<td><input type="text" th:field="*{nom}" /></td>
+			</tr>
+			<tr>
+				<td><label text="prenom"> Prenom</label></td>
+				<td><input type="text"  th:field="*{prenom}" /></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Update" class="btn btn-outline-primary" /></td>
+			</tr>
+		</table>
+	</form>
+
+
+</body>
+</html>
